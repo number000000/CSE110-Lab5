@@ -1,7 +1,6 @@
 // expose.js
 window.addEventListener('DOMContentLoaded', init);
 
-
 function init() {
   var audio = document.querySelector("audio"); //object of the audio
   var horn_select = document.getElementById("horn-select"); //object of the drop-down menu
@@ -49,11 +48,11 @@ function init() {
   })
 
   //play sound
+  const jsConfetti = new JSConfetti();
   var play_button = document.querySelector("button");
   play_button.addEventListener('click', function(){
     audio.play();
     if(horn_select.value == "party-horn"){
-      const jsConfetti = new JSConfetti();
       jsConfetti.addConfetti();
     }
   })
