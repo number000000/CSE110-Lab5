@@ -3,36 +3,50 @@ window.addEventListener('DOMContentLoaded', init);
 
 
 function init() {
-
-  var horn_select = document.getElementById("horn-select");
+  var audio = document.querySelector("audio"); //object of the audio
+  var horn_select = document.getElementById("horn-select"); //object of the drop-down menu
+  var horn_img = document.querySelector("img");
   horn_select.addEventListener('change', function() {
     switch(horn_select.value){
       case "air-horn":
         //displaying the correct image
-        var air_horn = document.querySelector("img");
-        air_horn.src = "assets/images/air-horn.svg";
+        horn_img.src = "assets/images/air-horn.svg";
         //loading the correct audio file
-        air_horn = document.querySelector("audio");
-        air_horn.src = "assets/audio/air-horn.mp3";
-        air_horn.play(); //FIXME
+        audio.src = "assets/audio/air-horn.mp3";
+        audio.play(); //FIXME
         break;
       case "car-horn":
-        var car_horn = document.querySelector("img");
-        car_horn.src = "assets/images/car-horn.svg";
+        horn_img.src = "assets/images/car-horn.svg";
         //loading the correct audio file
-        car_horn = document.querySelector("audio");
-        car_horn.src = "assets/audio/car-horn.mp3";
-        car_horn.play(); //FIXME
+        audio.src = "assets/audio/car-horn.mp3";
+        audio.play(); //FIXME
         break;
       case "party-horn":
-        var party_horn = document.querySelector("img");
-        party_horn.src = "assets/images/party-horn.svg";
+        horn_img.src = "assets/images/party-horn.svg";
         //loading the correct audio file
-        party_horn = document.querySelector("audio");
-        party_horn.src = "assets/audio/party-horn.mp3";
-        party_horn.play(); //FIXME
+        audio.src = "assets/audio/party-horn.mp3";
+        audio.play(); //FIXME
         break;
     }
+  })
+
+  var volume_control = document.getElementById("volume-controls"); //object of the volume wrapper
+  var volume_image = volume_control.querySelector("img"); //object the image of the sound icon
+  var volume_value = volume_control.querySelector("input"); //object the volume slider
+  volume_value.addEventListener('input', function(){
+    audio.volume = (Number)(volume_value.value) / 100; //set volume
+    if(volume_value.value > 0 && volume_value.value < 33)
+      //display the first level volume level icon
+      volume_image.src = "assets/icons/volume-level-1.svg";
+    if(volume_value.value > 32 && volume_value.value < 67)
+      //display the second level volume level icon
+      volume_image.src = "assets/icons/volume-level-2.svg";
+    if(volume_value.value > 66)
+      //display the third level volume level icon
+      volume_image.src = "assets/icons/volume-level-3.svg";
+    if(volume_value.value == 0)
+      //display the mute icon
+      volume_image.src = "assets/icons/volume-level-0.svg";
   })
 
   //play sound
