@@ -34,6 +34,7 @@ function init() {
   talk_button.addEventListener('click', function(){
     var text_to_talk = new SpeechSynthesisUtterance(text_box.value);
 
+    //find the voice
     for(let i = 0; i < voices.length; i++){
       if(voices[i].name == select_list.selectedOptions[0].getAttribute('data-name')){
         text_to_talk.voice = voices[i];
@@ -42,10 +43,12 @@ function init() {
 
     speechSynthesis.speak(text_to_talk);
 
-    /*
-    while(speechSynthesis.speaking){
+    //set correct face images
+    text_to_talk.addEventListener('start', function(){
       face.src = "assets/images/smiling-open.png";
-    }
-    face.src = "assets/images/smiling.png";*/
+    })
+    text_to_talk.addEventListener('end', function(){
+      face.src = "assets/images/smiling.png";
+    })
   })
 }
