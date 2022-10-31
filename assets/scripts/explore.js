@@ -30,6 +30,17 @@ function init() {
     speechSynthesis.onvoiceschanged = getVoiceList;
   }
 
+
+  //myTimer() is used against the 15-second limit on Chrome
+  //so now our code can read long text on Chrome
+  var myTimeout;
+  function myTimer() {
+      window.speechSynthesis.pause();
+      window.speechSynthesis.resume();
+      myTimeout = setTimeout(myTimer, 10000);
+  }
+  
+
   //let it speak
   talk_button.addEventListener('click', function(){
     var text_to_talk = new SpeechSynthesisUtterance(text_box.value);
@@ -46,9 +57,11 @@ function init() {
     //set correct face images
     text_to_talk.addEventListener('start', function(){
       face.src = "assets/images/smiling-open.png";
+      myTimeout = setTimeout(myTimer, 10000); //used against 15s Chrome limitation
     })
     text_to_talk.addEventListener('end', function(){
       face.src = "assets/images/smiling.png";
+      clearTimeout(myTimeout); //used against 15s Chrome limitation
     })
   })
 }
